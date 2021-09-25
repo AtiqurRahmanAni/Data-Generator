@@ -58,7 +58,7 @@ let dataLength = 0;
 // console.log(binData);
 // console.log(addressData);
 //add displays
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 8; i++) {
     displayContainer.innerHTML += displayDiv;
 }
 const dots = document.querySelectorAll(".dot");
@@ -83,6 +83,12 @@ dots.forEach(dot => {
             generateData(4, row, col);
         } else if (displayNo == "display-5") {
             generateData(5, row, col);
+        } else if (displayNo == "display-6") {
+            generateData(6, row, col);
+        } else if (displayNo == "display-7") {
+            generateData(7, row, col);
+        } else if (displayNo == "display-8") {
+            generateData(8, row, col);
         }
 
     });
@@ -96,13 +102,16 @@ resetButton.addEventListener("click", () => {
     });
     binData.innerText = "DOT DB ";
     addressData.innerText = "DOTADD DW ";
-    dataLen.innerText = "I DB ";
+    dataLen.innerText = "I DW ";
     dataLength = 0;
     arrDisp1 = initArray();
     arrDisp2 = initArray();
     arrDisp3 = initArray();
     arrDisp4 = initArray();
     arrDisp5 = initArray();
+    arrDisp6 = initArray();
+    arrDisp7 = initArray();
+    arrDisp8 = initArray();
 
 });
 
@@ -111,6 +120,9 @@ let arrDisp2 = initArray();
 let arrDisp3 = initArray();
 let arrDisp4 = initArray();
 let arrDisp5 = initArray();
+let arrDisp6 = initArray();
+let arrDisp7 = initArray();
+let arrDisp8 = initArray();
 
 function generateData(display, row, col) {
     if (display === 1) {
@@ -161,8 +173,7 @@ function generateData(display, row, col) {
         let address = "20" + lsb + "H,";
         bin += "B,";
         showData(bin, address);
-    }
-    else if (display === 5) {
+    } else if (display === 5) {
         arrDisp5[row - 1][col - 1] = 1;
         let bin = "0";
         let tempAddress = 20 + col - 1;
@@ -174,12 +185,49 @@ function generateData(display, row, col) {
         let address = "20" + lsb + "H,";
         bin += "B,";
         showData(bin, address);
+    } else if (display === 6) {
+        arrDisp6[row - 1][col - 1] = 1;
+        let bin = "0";
+        let tempAddress = 25 + col - 1;
+        for (let i = 6; i >= 0; i--) {
+            bin += arrDisp6[i][col - 1] + "";
+        }
+        let lsb = tempAddress.toString(16).toUpperCase();
+        lsb = lsb.length < 2 ? "0" + lsb : lsb;
+        let address = "20" + lsb + "H,";
+        bin += "B,";
+        showData(bin, address);
+    } else if (display === 7) {
+        arrDisp7[row - 1][col - 1] = 1;
+        let bin = "0";
+        let tempAddress = 30 + col - 1;
+        for (let i = 6; i >= 0; i--) {
+            bin += arrDisp7[i][col - 1] + "";
+        }
+        let lsb = tempAddress.toString(16).toUpperCase();
+        lsb = lsb.length < 2 ? "0" + lsb : lsb;
+        let address = "20" + lsb + "H,";
+        bin += "B,";
+        showData(bin, address);
+    } else if (display === 8) {
+        arrDisp8[row - 1][col - 1] = 1;
+        let bin = "0";
+        let tempAddress = 35 + col - 1;
+        for (let i = 6; i >= 0; i--) {
+            bin += arrDisp8[i][col - 1] + "";
+        }
+        let lsb = tempAddress.toString(16).toUpperCase();
+        lsb = lsb.length < 2 ? "0" + lsb : lsb;
+        let address = "20" + lsb + "H,";
+        bin += "B,";
+        showData(bin, address);
     }
+
 }
 function showData(bin, address) {
     // console.log(address);
     dataLength++;
-    dataLen.innerText = "I DB " + dataLength;
+    dataLen.innerText = "I DW " + dataLength;
     binData.append(document.createTextNode(bin));
     addressData.append(document.createTextNode(address));
 }
